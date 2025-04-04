@@ -87,6 +87,10 @@
             <mat-icon matListItemIcon>interests</mat-icon>
             <div matListItemTitle>Organizations</div>
           </mat-list-item>
+          <mat-list-item routerLink="/projects" [activated]="router.isActive('/projects', true)">
+            <mat-icon matListItemIcon>interests</mat-icon>
+            <div matListItemTitle>Projects</div>
+          </mat-list-item>
           <mat-divider></mat-divider>
           <!-- Other-->
           <h3 matSubheader>Other</h3>
