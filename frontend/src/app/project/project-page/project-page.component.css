@@ -1,0 +1,19 @@
+
+.project-search-bar {
+    ::ng-deep .mat-mdc-card {
+        max-width: 100% !important;
+        margin-left: 10% !important;
+        margin-right: 10% !important;
+    }
+}
+
+.project-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1rem;
+    column-gap: 1rem;
+    padding: 16px;
+}

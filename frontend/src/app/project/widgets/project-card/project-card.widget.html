@@ -1,11 +1,21 @@
 <mat-pane class="card" appearance="outlined">
     <!-- Project Name -->
-    <mat-card-title
-        class="title"
-        [matTooltip]="project.short_description"
-        matTooltipPosition="above">
-        {{project.title}}
-      </mat-card-title>
+    <mat-card-header class="header">
+      <!-- Container for Logo and Name to allow for left alignment -->
+      <div class="left-container">
+        <!-- Organization Name -->
+        <mat-card-title
+          class="title"
+          [matTooltip]="project.title"
+          matTooltipPosition="above"
+          [matTooltipDisabled]="project.title.length < 35">
+          {{project.title}}
+        </mat-card-title>
+      </div>
+    </mat-card-header>
+    <!-- <mat-card-title
+        
+      </mat-card-title> -->
 
       <mat-card-content class="description">
         <p>
