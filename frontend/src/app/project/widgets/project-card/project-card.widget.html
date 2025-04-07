@@ -1,0 +1,23 @@
+<mat-pane class="card" appearance="outlined">
+    <!-- Project Name -->
+    <mat-card-title
+        class="title"
+        [matTooltip]="project.short_description"
+        matTooltipPosition="above">
+        {{project.title}}
+      </mat-card-title>
+
+      <mat-card-content class="description">
+        <p>
+          {{ project.short_description }}
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <a
+        class="details-link"
+        [routerLink]="['/projects', project.slug]"> 
+        <button mat-flat-button>Details</button>
+      </a>
+    </mat-card-actions>
+</mat-pane>
