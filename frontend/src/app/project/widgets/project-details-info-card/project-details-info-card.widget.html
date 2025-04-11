@@ -1,1 +1,54 @@
-<p>Hello world</p>
+@if (project) {
+    <mat-pane>
+      <mat-card-header>
+        <div class="header-row">
+          <img mat-card-avatar src="{{ project.image }}" />
+          <mat-card-title>{{ project.title }}</mat-card-title>
+        </div>
+        <div class="links-row">
+           @if (project.email !== '') {
+          <div class="row">
+            <mat-icon class="secondary-icon">mail</mat-icon>
+            <p>
+              <a
+                class="font-secondary"
+                href="mailto:{{ project.email }}"
+                target="_blank"
+                >Email</a
+              >
+            </p>
+          </div>
+          }  @if (project.linked_in !== '') {
+          <div class="row">
+            <mat-icon
+              class="link-icons secondary-icon"
+              id="linkedin-icon"
+              svgIcon="linkedin" />
+            <p>
+              <a
+                class="font-secondary"
+                [href]="project.linked_in"
+                target="_blank"
+                >LinkedIn</a
+              >
+            </p>
+          </div>
+          } 
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ project.long_description || project.short_description }}</p>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          class="primary-button"
+          [routerLink]="'/projects/' + this.project.slug + '/edit'">
+          Edit
+        </button>
+        
+      </mat-card-actions>
+    </mat-pane>
+    }
+    

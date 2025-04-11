@@ -7,7 +7,7 @@ import { Project } from '../../project.model';
   styleUrls: ['./project-details-info-card.widget.css']
 })
 export class ProjectDetailsInfoCard {
-  @Input() project!: Project;
+  @Input() project: Project | undefined;
 
   constructor() {}
 }

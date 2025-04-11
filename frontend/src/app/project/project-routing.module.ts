@@ -4,7 +4,7 @@ import { ProjectPageComponent } from './project-page/project-page.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 const routes: Routes = [
-  { path: '', component: ProjectPageComponent },
+  ProjectPageComponent.Route,
   ProjectDetailsComponent.Route
 ];
 

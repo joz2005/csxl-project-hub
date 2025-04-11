@@ -11,6 +11,12 @@ import { ProjectService } from '../project.service';
   styleUrl: './project-page.component.css'
 })
 export class ProjectPageComponent {
+  public static Route = {
+    path: '',
+    title: 'Projects',
+    component: ProjectPageComponent
+  };
+
   public searchBarQuery = '';
   public projects: Signal<Project[]>;
 

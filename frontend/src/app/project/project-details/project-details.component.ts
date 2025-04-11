@@ -8,6 +8,10 @@ import {
 
 import { Project } from '../project.model';
 
+let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
+  return route.parent!.data['project']?.shorthand ?? 'Project Not Found';
+};
+
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
@@ -16,10 +20,17 @@ import { Project } from '../project.model';
 export class ProjectDetailsComponent {
   public static Route: Route = {
     path: ':slug',
-    component: ProjectDetailsComponent
+    component: ProjectDetailsComponent,
+    children: [
+      {
+        path: '',
+        title: titleResolver,
+        component: ProjectDetailsComponent
+      }
+    ]
   };
 
-  public project!: Project;
+  public project: Project;
 
   constructor(private route: ActivatedRoute) {
     const data = this.route.snapshot.data as {
