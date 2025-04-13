@@ -10,6 +10,7 @@ from ..models.project import Project
 from ..models.project_details import ProjectDetails
 from .permission import PermissionService
 
+
 __authors__ = ["Kaw BU", "Joseph", "Kamal Deep", "Zhi Yang"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
@@ -97,26 +98,30 @@ class ProjectService:
 
     def get_by_slug(self, slug: str) -> ProjectDetails:
         """
-        Get the organization from a slug
+        Get the project from a slug
         If none retrieved, a debug description is displayed.
 
         Parameters:
-            slug: a string representing a unique organization slug
+            slug: a string representing a unique project slug
 
         Returns:
             Organization: Object with corresponding slug
 
         Raises:
-            ResourceNotFoundException if no organization is found with the corresponding slug
+            ResourceNotFoundException if no project is found with the corresponding slug
         """
 
-        # Query the organization with matching slug
-        project = mock_project
+        project: Project
+
+        if slug == "smart-campus-energy-tracker":
+            project = mock_project
+        elif slug == "ai-crop-disease-detector":
+            project = mock_project_2
 
         # Check if result is null
         if project is None:
             raise ResourceNotFoundException(
-                f"No organization found with matching slug: {slug}"
+                f"No project found with matching slug: {slug}"
             )
 
         return ProjectDetails(**project.__dict__)

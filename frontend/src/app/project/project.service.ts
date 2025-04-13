@@ -27,4 +27,8 @@ export class ProjectService {
       this.projectsSignal.set(projects);
     });
   }
+
+  getProject(slug: string): Observable<Project | undefined> {
+    return this.http.get<Project>('/api/projects/' + slug);
+  }
 }

@@ -5,11 +5,12 @@ import {
   ResolveFn,
   Route
 } from '@angular/router';
+import { projectResolver } from '../project.resolver';
 
 import { Project } from '../project.model';
 
 let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
-  return route.parent!.data['project']?.shorthand ?? 'Project Not Found';
+  return route.parent!.data['project'].title;
 };
 
 @Component({
@@ -21,6 +22,9 @@ export class ProjectDetailsComponent {
   public static Route: Route = {
     path: ':slug',
     component: ProjectDetailsComponent,
+    resolve: {
+      project: projectResolver
+    },
     children: [
       {
         path: '',

@@ -4,6 +4,7 @@
         <div class="header-row">
           <img mat-card-avatar src="{{ project.image }}" />
           <mat-card-title>{{ project.title }}</mat-card-title>
+          <mat-card-title>{{ project.author }}</mat-card-title>
         </div>
         <div class="links-row">
            @if (project.email !== '') {
@@ -40,15 +41,6 @@
         <p>{{ project.long_description || project.short_description }}</p>
 
       </mat-card-content>
-      <mat-card-actions>
-        <button
-          mat-flat-button
-          class="primary-button"
-          [routerLink]="'/projects/' + this.project.slug + '/edit'">
-          Edit
-        </button>
-        
-      </mat-card-actions>
     </mat-pane>
     }
     

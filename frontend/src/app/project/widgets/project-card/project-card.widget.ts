@@ -9,5 +9,6 @@ import { Profile } from '../../../profile/profile.service';
 })
 export class ProjectCard {
   @Input() project!: Project;
+
   constructor() {}
 }
