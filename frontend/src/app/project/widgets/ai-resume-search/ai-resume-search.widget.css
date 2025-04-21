@@ -1,0 +1,10 @@
+input[type="file"] {
+    display: block;
+    margin: 16px 0;
+  }
+  p {
+    margin: 8px 0;
+  }
+  mat-divider {
+    margin: 16px 0;
+  }

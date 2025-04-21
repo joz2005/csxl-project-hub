@@ -17,3 +17,7 @@
     column-gap: 1rem;
     padding: 16px;
 }
+
+.file-input {
+    display: none;
+}

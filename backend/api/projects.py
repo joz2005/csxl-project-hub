@@ -2,13 +2,17 @@
 
 Project routes are used to create, retrieve, and update Projects."""
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 
-from ..services import ProjectService, RoleService
+from ..services import ProjectService
+from ..services.projectai import ProjectAIService
 from ..models.project import Project
 from ..models.project_details import ProjectDetails
+from ..models.openai_project import OpenAIProjectResponse
 from ..api.authentication import registered_user
 from ..models.user import User
+from ..models.resume import Resume
+
 
 __authors__ = ["Ajay Gandecha", "Jade Keegan", "Brianna Ta", "Audrey Toney"]
 __copyright__ = "Copyright 2023"
@@ -94,6 +98,48 @@ def get_project_by_slug(
     return project_service.get_by_slug(slug)
 
 
+@api.post(
+    "/resume",
+    responses={404: {"model": None}},
+    response_model=Resume,
+    tags=["Projects"],
+)
+def post_resume(
+    resume: UploadFile = File(...), project_service: ProjectService = Depends()
+) -> Resume:
+    return project_service.post_resume(resume)
+
+
+@api.post(
+    "/recommendation",
+    responses={404: {"model": None}},
+    response_model=OpenAIProjectResponse,
+    tags=["Projects"],
+)
+def recommend_project(
+    resume: UploadFile = File(...),
+    # If needed, require authenticated user:
+    # subject: User = Depends(registered_user),
+    project_service: ProjectService = Depends(),
+    project_ai_service: ProjectAIService = Depends(),
+) -> OpenAIProjectResponse:
+    # Extract text from resume without persisting it publicly.
+    resume_obj: Resume = project_service.post_resume(resume)
+
+    if not resume_obj.content.strip():
+        raise HTTPException(
+            status_code=400, detail="Failed to extract content from the resume."
+        )
+
+    # Immediately obtain the recommendation from the AI service.
+    recommendation: OpenAIProjectResponse = project_ai_service.get_recommendation(
+        resume_obj
+    )
+
+    # Return the recommendation to the user.
+    return recommendation
+  
+  
 '''@api.put(
     "",
     responses={404: {"model": None}},

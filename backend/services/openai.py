@@ -99,3 +99,4 @@ class OpenAIService:
             return response_model.model_validate_json(
                 completion.choices[0].message.content
             )
+

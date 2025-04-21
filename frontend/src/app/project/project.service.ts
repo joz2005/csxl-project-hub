@@ -11,8 +11,11 @@ import { PermissionService } from '../permission.service';
   providedIn: 'root'
 })
 export class ProjectService {
+
+  private recommendSignal: WritableSignal<Project[]> = signal([]);
   private projectsSignal: WritableSignal<Project[]> = signal([]);
   projects = this.projectsSignal.asReadonly();
+  recommendations = this.recommendSignal.asReadonly();
 
   constructor(
     protected http: HttpClient,
@@ -30,5 +33,15 @@ export class ProjectService {
 
   getProject(slug: string): Observable<Project | undefined> {
     return this.http.get<Project>('/api/projects/' + slug);
+  }
+
+  postResume(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    return this.http.post<{ recommendations: Project[] }>(
+      '/api/projects/recommendation',
+      formData
+    );
   }
 }

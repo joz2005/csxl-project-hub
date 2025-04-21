@@ -6,6 +6,7 @@ Production systems monitor these end points upon deployment, and at regular inte
 from typing import Annotated
 from fastapi import APIRouter, Depends
 from ..models.openai_test_response import OpenAITestResponse
+from ..models.openai_project import OpenAIProjectResponse
 from ..services.health import HealthService
 
 
@@ -42,3 +43,11 @@ def openai_check(health_svc: Annotated[HealthService, Depends()]) -> OpenAITestR
         OpenAITestResponse: Response containing basketball player information.
     """
     return health_svc.check_openai()
+
+  
+@api.get("/openai/projects", tags=["System Health"])
+def openai_project_check(
+    health_svc: Annotated[HealthService, Depends()],
+) -> OpenAIProjectResponse:
+    return health_svc.check_project_response()
+

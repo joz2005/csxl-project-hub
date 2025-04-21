@@ -15,6 +15,9 @@ from sqlalchemy import text
 from ..models.openai_test_response import OpenAITestResponse
 from ..database import Session, db_session
 from ..services.openai import OpenAIService
+from ..services.project import ProjectService
+from ..models.openai_project import OpenAIProjectResponse
+
 
 __authors__ = ["Kris Jordan"]
 __copyright__ = "Copyright 2023"
@@ -44,5 +47,21 @@ class HealthService:
         system_prompt = "You are a student at UNC-Chapel Hill."
         user_prompt = "Who is our most famous basketball player?"
         response_model = OpenAITestResponse
+        return self._openai_svc.prompt(system_prompt, user_prompt, response_model)
+
+    def check_project_response(self) -> OpenAIProjectResponse:
+
+        service = ProjectService()
+
+        system_prompt = (
+            "You are a student at UNC-Chapel Hill applying for a project, "
+            "here are the following projects with descriptions in JSON format."
+            + str(service.all())
+        )
+
+        user_prompt = "I want to work under Jane Doe"
+
+        response_model = OpenAIProjectResponse
+
         return self._openai_svc.prompt(system_prompt, user_prompt, response_model)
 

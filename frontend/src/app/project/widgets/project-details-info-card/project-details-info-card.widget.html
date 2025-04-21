@@ -1,13 +1,13 @@
 @if (project) {
-    <mat-pane>
-      <mat-card-header>
-        <div class="header-row">
-          <img mat-card-avatar src="{{ project.image }}" />
-          <mat-card-title>{{ project.title }}</mat-card-title>
-          <mat-card-title>{{ project.author }}</mat-card-title>
-        </div>
-        <div class="links-row">
-           @if (project.email !== '') {
+  <mat-pane>
+    <mat-card-header>
+      <div class="header-row">
+        <img class="project-image" src="{{ project.image }}" />
+        <mat-card-title>{{ project.title }}</mat-card-title>
+        <mat-card-title>{{ project.author }}</mat-card-title>
+      </div>
+      <div class="links-row">
+        @if (project.email !== '') {
           <div class="row">
             <mat-icon class="secondary-icon">mail</mat-icon>
             <p>
@@ -19,12 +19,14 @@
               >
             </p>
           </div>
-          }  @if (project.linked_in !== '') {
+        }
+        @if (project.linked_in !== '') {
           <div class="row">
             <mat-icon
               class="link-icons secondary-icon"
               id="linkedin-icon"
-              svgIcon="linkedin" />
+              svgIcon="linkedin"
+            />
             <p>
               <a
                 class="font-secondary"
@@ -34,13 +36,50 @@
               >
             </p>
           </div>
-          } 
-        </div>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ project.long_description || project.short_description }}</p>
+        }
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ project.long_description || project.short_description }}</p>
+    </mat-card-content>
 
-      </mat-card-content>
-    </mat-pane>
-    }
-    
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="showForm = !showForm">
+        Apply
+      </button>
+    </mat-card-actions>
+
+    <div *ngIf="showForm" class="apply-form">
+      <form (ngSubmit)="submitApplication()" #applicationForm="ngForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput name="name" [(ngModel)]="formData.name" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            [(ngModel)]="formData.email"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Message</mat-label>
+          <textarea
+            matInput
+            name="message"
+            [(ngModel)]="formData.message"
+          ></textarea>
+        </mat-form-field>
+
+        <button mat-flat-button color="accent" type="submit">
+          Submit Application
+        </button>
+      </form>
+    </div>
+  </mat-pane>
+}

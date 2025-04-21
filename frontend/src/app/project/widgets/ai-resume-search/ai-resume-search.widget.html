@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Upload Your Resume</h2>
+<mat-dialog-content>
+  <p>
+    Upload your resume to share with our team. Please ensure your file is in PDF
+    format and contains your most up-to-date information.
+  </p>
+  <mat-divider />
+  <mat-card-subtitle>Resume File</mat-card-subtitle>
+  <p>Select your resume file</p>
+  <input
+    type="file"
+    accept=".pdf"
+    (change)="onFileSelected($event)"
+    style="margin-bottom: 16px"
+  />
+  <p *ngIf="selectedFile">Selected file: {{ selectedFile.name }}</p>
+  <mat-divider />
+  <mat-card-subtitle>Terms of Upload</mat-card-subtitle>
+  <p>
+    By submitting, You confirm that the resume you are uploading is my own work and contains accurate
+    information about your qualifications and experience.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-stroked-button color="secondary" (click)="close()">Cancel</button>
+  <button
+    mat-flat-button
+    (click)="uploadResume()"
+    [disabled]="!isValid"
+  >
+    Upload Resume
+  </button>
+</mat-dialog-actions>

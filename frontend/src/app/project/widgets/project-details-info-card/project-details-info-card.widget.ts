@@ -9,5 +9,24 @@ import { Project } from '../../project.model';
 export class ProjectDetailsInfoCard {
   @Input() project: Project | undefined;
 
+  showForm = false;
+
+  formData = {
+    name: '',
+    email: '',
+    message: ''
+  };
+
+  submitApplication() {
+    console.log('Application submitted:', this.formData);
+
+    // Reset form and hide it
+    this.formData = {
+      name: '',
+      email: '',
+      message: ''
+    };
+    this.showForm = false;
+  }
   constructor() {}
 }

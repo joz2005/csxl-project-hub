@@ -1,71 +1,28 @@
-from fastapi import Depends
+
+from fastapi import Depends, UploadFile
+from typing import Annotated
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.services.exceptions import ResourceNotFoundException
 
+import PyPDF2
+import uuid
+
 from ..database import db_session
 from ..models import User
 from ..models.project import Project
 from ..models.project_details import ProjectDetails
+from ..entities.project_entity import ProjectEntity
+from ..models.resume import Resume
+from ..models.openai_project import OpenAIProjectResponse
+from ..services.openai import OpenAIService
 from .permission import PermissionService
 
 
 __authors__ = ["Kaw BU", "Joseph", "Kamal Deep", "Zhi Yang"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
-
-global mock_project, mock_project_2
-mock_project = Project(
-    id=1,
-    author="Jane Doe",
-    image="https://example.com/images/project-thumbnail.jpg",
-    title="Smart Campus Energy Tracker",
-    short_description="Track and optimize energy usage across campus buildings.",
-    long_description=(
-        "This project involves building a real-time dashboard that collects and visualizes "
-        "energy consumption data across different facilities on campus. The goal is to reduce energy "
-        "waste, promote sustainability, and provide actionable insights to facility managers."
-    ),
-    requirements=(
-        "- Experience with Python and FastAPI\n"
-        "- Familiarity with IoT and sensor data\n"
-        "- Bonus: Knowledge of energy systems or building automation"
-    ),
-    additional_info="We’ll be presenting this project at the university's sustainability fair.",
-    email="jane.doe@example.com",
-    phone_number="(555) 123-4567",
-    linked_in="https://linkedin.com/in/janedoe",
-    public=True,
-    slug="smart-campus-energy-tracker",
-)
-mock_project_2 = Project(
-    id=2,
-    author="Carlos Nguyen",
-    image="https://example.com/images/agri-ai.jpg",
-    title="AI-Powered Crop Disease Detection",
-    short_description="Use AI to identify plant diseases from images.",
-    long_description=(
-        "This project aims to develop a machine learning model that can detect common crop diseases "
-        "from leaf images. It will help farmers diagnose issues early and reduce crop loss. The app will "
-        "also suggest remedies and connect users to agricultural experts."
-    ),
-    requirements=(
-        "- Knowledge of machine learning and image classification\n"
-        "- Python (TensorFlow or PyTorch preferred)\n"
-        "- Optional: Familiarity with agriculture or plant science"
-    ),
-    additional_info=(
-        "The project is part of a university research initiative and has potential for publication. "
-        "You'll work with a diverse, cross-disciplinary team."
-    ),
-    email="carlos.nguyen@example.com",
-    phone_number="(555) 987-6543",
-    linked_in="https://linkedin.com/in/carlosnguyen",
-    public=False,
-    slug="ai-crop-disease-detector",
-)
-
 
 class ProjectService:
     """
@@ -74,12 +31,14 @@ class ProjectService:
 
     def __init__(
         self,
-        session: Session = Depends(db_session),
-        permission: PermissionService = Depends(),
+        session: Annotated[Session, Depends(db_session)],
+        openai_svc: Annotated[OpenAIService, Depends()],
+        permission: Annotated[PermissionService, Depends()],
     ):
         """Initializes the `OrganizationService` session, and `PermissionService`"""
         self._session = session
         self._permission = permission
+        self._openai_svc = openai_svc
 
     def all(self) -> list[Project]:
         """
@@ -94,7 +53,9 @@ class ProjectService:
 
         # Convert entries to a model and return
 
-        return [mock_project, mock_project_2]
+        query = select(ProjectEntity)
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
 
     def get_by_slug(self, slug: str) -> ProjectDetails:
         """
@@ -111,17 +72,51 @@ class ProjectService:
             ResourceNotFoundException if no project is found with the corresponding slug
         """
 
-        project: Project
-
-        if slug == "smart-campus-energy-tracker":
-            project = mock_project
-        elif slug == "ai-crop-disease-detector":
-            project = mock_project_2
-
+        project = (
+            self._session.query(ProjectEntity)
+            .filter(ProjectEntity.slug == slug)
+            .one_or_none()
+        )
         # Check if result is null
         if project is None:
             raise ResourceNotFoundException(
                 f"No project found with matching slug: {slug}"
             )
 
-        return ProjectDetails(**project.__dict__)
+
+        return project.to_details_model()
+
+    def post_resume(self, resume: UploadFile) -> Resume:
+        random_uuid = uuid.uuid4()
+        content = ""
+        try:
+            pdf_reader = PyPDF2.PdfReader(resume.file)
+            for page in pdf_reader.pages:
+                extracted_text = page.extract_text()
+                if extracted_text:
+                    content += extracted_text
+        except Exception as e:
+            print(f"Error extracting PDF content: {e}")
+        return Resume(id=random_uuid.int, content=content)
+
+    def get_resume(self, id: int) -> Resume:
+        pass
+
+    # def get_reccommendation(self, id: int) -> OpenAIProjectResponse:
+
+    #     service = ProjectService()
+
+    #     system_prompt = (
+    #         "You are a student at UNC-Chapel Hill applying for a project, "
+    #         "here are the following projects with descriptions in JSON format."
+    #         + str(service.all())
+    #     )
+
+    #     user_prompt = (
+    #         "This is my resume contents, please match me with the listing(s) that closely pertains to my experiences and interests"
+    #         + service.post_resume(resume)
+    #     )
+
+    #     response_model = OpenAIProjectResponse
+
+    #     return self._openai_svc.prompt(system_prompt, user_prompt, response_model)

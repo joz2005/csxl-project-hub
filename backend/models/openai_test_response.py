@@ -6,4 +6,3 @@ class OpenAITestResponse(BaseModel):
 
     last_name: str
     jersey_number: int
-

@@ -25,13 +25,17 @@ import { ProjectDetailsInfoCard } from './widgets/project-details-info-card/proj
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { AISearchBar } from './widgets/ai-search-bar/ai-search-bar.widget';
+import{ AiResumeSearch } from "./widgets/ai-resume-search/ai-resume-search.widget"
 
 @NgModule({
   declarations: [
     ProjectDetailsComponent,
     ProjectPageComponent,
     ProjectCard,
-    ProjectDetailsInfoCard
+    ProjectDetailsInfoCard,
+    AISearchBar,
+    AiResumeSearch,
   ],
   imports: [
     CommonModule,
@@ -52,7 +56,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
     MatTooltipModule,
     ProjectRoutingModule,
     RouterModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class ProjectModule {}

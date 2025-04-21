@@ -2,11 +2,20 @@
   class="project-search-bar mat-csxl-search-bar"
   [(searchBarQuery)]="searchBarQuery" />
 
+<div class="file-upload">
+  <button
+    mat-mini-fab
+    color="primary"
+    class="upload-btn"
+    (click)="openResumeUploadModal()"
+  >
+    <mat-icon>attach_file</mat-icon>
+  </button>
+</div>
+
 <div class="project-cards">
-    <!-- Display card for each project, potentially filtered based on the search query. -->
-    @for (project of projects(); track project.id) {
-    <project-card
-        class="card"
-        [project]="project" />
-    }
+  <!-- Display card for each project, potentially filtered based on the search query. -->
+  @for (project of projects(); track project.id) {
+  <project-card class="card" [project]="project" />
+  }
 </div>
