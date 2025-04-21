@@ -17,6 +17,7 @@ from .api import (
     authentication,
     user,
     room,
+    projects,
     application,
     article,
     websocket,
@@ -56,6 +57,7 @@ app = FastAPI(
         profile.openapi_tags,
         user.openapi_tags,
         organizations.openapi_tags,
+        projects.openapi_tags,  # Must come before `projects` to ensure it is included in OpenAPI docs
         events.openapi_tags,
         section_member.openapi_tags,
         course.openapi_tags,
@@ -83,6 +85,7 @@ feature_apis = [
     events,
     user,
     organizations,
+    projects,
     ambassador,
     my_courses,
     term,

@@ -1,0 +1,12 @@
+<search-bar
+  class="project-search-bar mat-csxl-search-bar"
+  [(searchBarQuery)]="searchBarQuery" />
+
+<div class="project-cards">
+    <!-- Display card for each project, potentially filtered based on the search query. -->
+    @for (project of projects(); track project.id) {
+    <project-card
+        class="card"
+        [project]="project" />
+    }
+</div>

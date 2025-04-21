@@ -83,7 +83,8 @@ const routes: Routes = [
       import('./applications/applications.module').then(
         (m) => m.ApplicationsModule
       )
-  }
+  },
+  { path: 'projects', loadChildren: () => import('./project/project.module').then(m => m.ProjectModule) }
 ];
 
 @NgModule({
