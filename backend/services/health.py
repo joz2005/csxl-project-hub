@@ -45,3 +45,4 @@ class HealthService:
         user_prompt = "Who is our most famous basketball player?"
         response_model = OpenAITestResponse
         return self._openai_svc.prompt(system_prompt, user_prompt, response_model)
+
