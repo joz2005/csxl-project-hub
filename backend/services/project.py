@@ -1,4 +1,3 @@
-
 from fastapi import Depends, UploadFile
 from typing import Annotated
 from sqlalchemy import select
@@ -23,6 +22,7 @@ from .permission import PermissionService
 __authors__ = ["Kaw BU", "Joseph", "Kamal Deep", "Zhi Yang"]
 __copyright__ = "Copyright 2023"
 __license__ = "MIT"
+
 
 class ProjectService:
     """
@@ -83,8 +83,23 @@ class ProjectService:
                 f"No project found with matching slug: {slug}"
             )
 
-
         return project.to_details_model()
+
+    def post_application(self, application: Project) -> Project:
+        """
+        Post a new application to the database
+
+        Parameters:
+            application: a valid Project model
+
+        Returns:
+            Project: Created project
+        """
+        # Create a new project in the database
+        new_project = ProjectEntity.from_model(application)
+        self._session.add(new_project)
+        self._session.commit()
+        return new_project.to_model()
 
     def post_resume(self, resume: UploadFile) -> Resume:
         random_uuid = uuid.uuid4()

@@ -111,6 +111,35 @@ def post_resume(
 
 
 @api.post(
+    "/projects/apply",
+    responses={404: {"model": None}},
+    response_model=Project,
+    tags=["Projects"],
+)
+def post_application(
+    project: Project,
+    subject: User = Depends(registered_user),
+    project_service: ProjectService = Depends(),
+) -> Project:
+    """
+    Post application to a project
+
+    Parameters:
+        project: a valid Project model
+        subject: a valid User model representing the currently logged in User
+        project_service: a valid ProjectService
+
+    Returns:
+        Project: Created project
+
+    Raises:
+        HTTPException 422 if create() raises an Exception
+    """
+
+    return project_service.post_application(subject, project)
+
+
+@api.post(
     "/recommendation",
     responses={404: {"model": None}},
     response_model=OpenAIProjectResponse,
@@ -138,8 +167,8 @@ def recommend_project(
 
     # Return the recommendation to the user.
     return recommendation
-  
-  
+
+
 '''@api.put(
     "",
     responses={404: {"model": None}},

@@ -11,7 +11,6 @@ import { PermissionService } from '../permission.service';
   providedIn: 'root'
 })
 export class ProjectService {
-
   private recommendSignal: WritableSignal<Project[]> = signal([]);
   private projectsSignal: WritableSignal<Project[]> = signal([]);
   projects = this.projectsSignal.asReadonly();
@@ -42,6 +41,16 @@ export class ProjectService {
     return this.http.post<{ recommendations: Project[] }>(
       '/api/projects/recommendation',
       formData
+    );
+  }
+
+  postApplication(project: Project): Observable<any> {
+    return this.http.post('/api/projects/apply', project).pipe(
+      tap(() => {
+        this.snackBar.open('Application submitted successfully', 'Close', {
+          duration: 2000
+        });
+      })
     );
   }
 }
