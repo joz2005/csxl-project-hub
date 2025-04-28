@@ -78,15 +78,16 @@ export class ProjectPageComponent {
             loadingSnackbar.dismiss();
             console.log(response.listings[0].slug);
 
+            const origin = window.location.origin;
             let rv: String = '';
             response.listings.forEach((element: { slug: string }) => {
-              rv += 'http://localhost:1560/projects/' + element.slug;
+              rv += `${origin}/projects/${element.slug}, `;
             });
             this.snackBar.open(
               response.message || 'Found matching projects! ' + rv,
               'Close',
               {
-                duration: 10000,
+                duration: Infinity,
                 panelClass: ['success-snackbar'],
                 data: {
                   // Pass the recommendations to the snackbar
@@ -121,14 +122,15 @@ export class ProjectPageComponent {
   }
 
   onDelete(projectId: number): void {
-  this.projectService.deleteProject(projectId).subscribe({
-    next: () => {
-      this.snackBar.open('Project deleted', 'Close', { duration: 2000 });
-    },
-    error: (err) => {
-      const message = err.error?.detail || err.message || 'Failed to delete project';
-      this.snackBar.open(message, 'Close', { duration: 5000 });
-    }
-  });
-}
+    this.projectService.deleteProject(projectId).subscribe({
+      next: () => {
+        this.snackBar.open('Project deleted', 'Close', { duration: 2000 });
+      },
+      error: (err) => {
+        const message =
+          err.error?.detail || err.message || 'Failed to delete project';
+        this.snackBar.open(message, 'Close', { duration: 5000 });
+      }
+    });
+  }
 }
