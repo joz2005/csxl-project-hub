@@ -1,0 +1,28 @@
+.application-card {
+  width: 650px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.application-card-content {
+  flex-grow: 1;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.header-centered {
+  display: flex;
+  justify-content: center;
+}
+
+.header-centered mat-card-title {
+  width: 100%;
+  text-align: center;
+}

@@ -1,0 +1,44 @@
+<mat-card appearance="outlined" class="application-card">
+  <mat-card-header class="header-centered">
+    <mat-card-title>Job Application: {{ project?.title }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="application-card-content">
+    <div class="application-section">
+      <h3>Personal Statement</h3>
+      <p>{{ application.personal_statement }}</p>
+    </div>
+
+    <div class="application-section">
+      <h3>Experience</h3>
+      <p>{{ application.experience }}</p>
+    </div>
+
+    <div class="application-section">
+      <h3>GPA</h3>
+      <p>{{ application.gpa }}</p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="action-buttons">
+    @if (isPoster()) {
+      <button mat-flat-button color="primary" (click)="acceptApplication()">Accept</button>
+      <button mat-stroked-button color="warn" (click)="rejectApplication()">Reject</button>
+    }
+    @else if (isApplicant()) {
+      <button mat-stroked-button color="warn" (click)="rejectApplication()">Withdraw Application</button>
+    }
+  </mat-card-actions>
+</mat-card>
+<!-- yo mr kris jordan this what i used https://angular.dev/api/core/ng-template as reference for this (for the let specifically)-->
+<ng-template #contactDialog let-data>
+  <h2 mat-dialog-title>Contact Applicant</h2>
+  <mat-dialog-content>
+    <p>Please contact this applicant now with the information they provided:</p>
+    <p><strong>{{ data.contact }}</strong></p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="primary" (click)="confirmAccept()">Confirm</button>
+    <button mat-button (click)="dialogRef.close()">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>

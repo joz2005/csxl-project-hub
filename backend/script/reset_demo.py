@@ -21,6 +21,7 @@ from .. import entities
 from ..test.services import role_data, user_data, permission_data, room_data
 from ..test.services.organization import organization_demo_data
 from ..test.services.project import project_demo_data
+from ..test.services.project import project_job_application_demo_data
 from ..test.services.event import event_demo_data
 from ..test.services.coworking import seat_data, operating_hours_data, time
 from ..test.services.coworking.reservation import reservation_data
@@ -56,6 +57,7 @@ with Session(engine) as session:
     permission_data.insert_fake_data(session)
     organization_demo_data.insert_fake_data(session)
     project_demo_data.insert_fake_data(session)
+    project_job_application_demo_data.insert_fake_data(session)
     event_demo_data.insert_fake_data(session)
     operating_hours_data.insert_fake_data(session, time)
     seat_data.insert_fake_data(session)

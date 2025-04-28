@@ -9,11 +9,11 @@ __license__ = "MIT"
 
 class ProjectDetails(Project):
     """
-    Pydantic model to represent an `Organization`, including back-populated
+    Pydantic model to represent an `Project`, including back-populated
     relationship fields.
 
-    This model is based on the `OrganizationEntity` model, which defines the shape
-    of the `Organization` database in the PostgreSQL database.
+    This model is based on the `ProjectEntity` model, which defines the shape
+    of the `Project` database in the PostgreSQL database.
     """
 
     resume: str = "hello world"  # Placeholder for resume or other details

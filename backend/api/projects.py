@@ -12,6 +12,7 @@ from ..models.openai_project import OpenAIProjectResponse
 from ..api.authentication import registered_user
 from ..models.user import User
 from ..models.resume import Resume
+from ..models.project_job_application import ProjectJobApplication
 
 
 __authors__ = ["Ajay Gandecha", "Jade Keegan", "Brianna Ta", "Audrey Toney"]
@@ -41,6 +42,79 @@ def get_projects(
 
     # Return all projects
     return project_service.all()
+
+
+@api.get(
+    "/job-applications",
+    responses={404: {"model": None}},
+    response_model=list[ProjectJobApplication],
+    tags=["Projects"],
+)
+def get_project_job_applications(
+    project_service: ProjectService = Depends(),
+) -> list[ProjectJobApplication]:
+    """
+    Get all project job applications
+
+    Parameters:
+        project_service: a valid ProjectService
+
+    Returns:
+        list[ProjectJobApplication]: All `ProjectJobApplication`s in the `ProjectJobApplication` database table
+    """
+
+    # Return all projects
+    return project_service.get_all_project_job_applications()
+
+@api.delete(
+    "/job-applications/{id}",
+    responses={404: {"model": None}},
+    response_model=None,
+    tags=["Projects"],  # You can make a new tag "Job Applications" if you want cleaner Swagger
+)
+def remove_job_application(
+    id: int,
+    subject: User = Depends(registered_user),
+    project_service: ProjectService = Depends(),
+):
+    """
+    Remove a Job Application
+
+    Parameters:
+        id: an integer representing the unique ID of the Job Application
+        subject: the currently logged-in user (required for authentication)
+        project_service: an instance of ProjectService
+
+    Raises:
+        HTTPException 404 if deletion fails
+    """
+
+    project_service.remove_job_application(subject, id)
+
+
+
+@api.post(
+    "/job-applications",
+    responses={404: {"model": None}},
+    response_model=ProjectJobApplication,
+    tags=["Projects"],
+)
+def post_job_application(
+    project_job_application: ProjectJobApplication,
+    subject: User = Depends(registered_user),
+    project_service: ProjectService = Depends(),
+) -> Project:
+    """Post application to a project"""
+    try:
+        return project_service.post_job_application(subject, project_job_application)
+    except Exception as e:
+        # Log the error with traceback
+        import traceback
+
+        print(f"Error in post_job_application: {str(e)}")
+        print(traceback.format_exc())
+        # Re-raise the exception
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
 '''@api.post("", response_model=Project, tags=["Projects"])
@@ -111,7 +185,7 @@ def post_resume(
 
 
 @api.post(
-    "/projects/apply",
+    "",
     responses={404: {"model": None}},
     response_model=Project,
     tags=["Projects"],
@@ -121,22 +195,45 @@ def post_application(
     subject: User = Depends(registered_user),
     project_service: ProjectService = Depends(),
 ) -> Project:
+    """Post application to a project"""
+    try:
+        return project_service.post_application(subject, project)
+    except Exception as e:
+        # Log the error with traceback
+        import traceback
+
+        print(f"Error in post_application: {str(e)}")
+        print(traceback.format_exc())
+        # Re-raise the exception
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+
+@api.delete(
+    "/{id}",
+    responses={404: {"model": None}},
+    response_model=None,
+    tags=["Projects"],
+)
+def remove_application(
+    id: int,
+    subject: User = Depends(registered_user),
+    project_service: ProjectService = Depends(),
+):
     """
-    Post application to a project
+    Remove application to a project
 
     Parameters:
-        project: a valid Project model
+        id: a string representing a unique identifier for an Project
         subject: a valid User model representing the currently logged in User
         project_service: a valid ProjectService
 
-    Returns:
-        Project: Created project
-
     Raises:
-        HTTPException 422 if create() raises an Exception
+        HTTPException 404 if remove_application() raises an Exception
     """
-
-    return project_service.post_application(subject, project)
+    try:
+        project_service.remove_application(subject, id)
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
 
 
 @api.post(

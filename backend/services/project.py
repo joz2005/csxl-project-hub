@@ -17,6 +17,8 @@ from ..models.resume import Resume
 from ..models.openai_project import OpenAIProjectResponse
 from ..services.openai import OpenAIService
 from .permission import PermissionService
+from ..models.project_job_application import ProjectJobApplication
+from ..entities.project_job_app_entity import ProjectJobApplicationEntity
 
 
 __authors__ = ["Kaw BU", "Joseph", "Kamal Deep", "Zhi Yang"]
@@ -85,21 +87,51 @@ class ProjectService:
 
         return project.to_details_model()
 
-    def post_application(self, application: Project) -> Project:
-        """
-        Post a new application to the database
+    def post_application(self, subject: User, application: Project) -> Project:
+        try:
+            # Checks if the organization already exists in the table
+            if application.id:
+                # Set id to None so database can handle setting the id
+                application.id = None
 
-        Parameters:
-            application: a valid Project model
+            # Create new object
+            project_entity = ProjectEntity.from_model(application)
 
-        Returns:
-            Project: Created project
-        """
-        # Create a new project in the database
-        new_project = ProjectEntity.from_model(application)
-        self._session.add(new_project)
+            # Add new object to table and commit changes
+            self._session.add(project_entity)
+            self._session.commit()
+
+            # Return added object
+            return project_entity.to_model()
+        except Exception as e:
+            import traceback
+
+            print(f"Error in service post_application: {str(e)}")
+            print(traceback.format_exc())
+            raise
+
+    def remove_application(self, subject: User, id: int) -> None:
+        # First query the project entity
+        project_entity = (
+            self._session.query(ProjectEntity)
+            .filter(ProjectEntity.id == id)
+            .one_or_none()
+        )
+
+        # Check if the project exists in the table
+        if not project_entity:
+            raise ResourceNotFoundException(f"No project found with id: {id}")
+
+        # Check if the author is the same as the user
+        if project_entity.author_id != subject.id:
+            raise ResourceNotFoundException(
+                f"User does not have permission to delete this project"
+            )
+
+        # Delete the project from the table
+        self._session.delete(project_entity)
         self._session.commit()
-        return new_project.to_model()
+
 
     def post_resume(self, resume: UploadFile) -> Resume:
         random_uuid = uuid.uuid4()
@@ -135,3 +167,63 @@ class ProjectService:
     #     response_model = OpenAIProjectResponse
 
     #     return self._openai_svc.prompt(system_prompt, user_prompt, response_model)
+
+    def get_all_project_job_applications(self) -> list[ProjectJobApplication]:
+        """
+        Retrieves all projects from the table
+
+        Returns:
+            list[Project]: List of all `Project`
+        """
+        # Select all entries in `ProjectJobApplication` table
+        # query = select(OrganizationEntity)
+        # entities = self._session.scalars(query).all()
+
+        # Convert entries to a model and return
+
+        query = select(ProjectJobApplicationEntity)
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]
+
+    def post_job_application(
+        self, subject: User, application: ProjectJobApplication
+    ) -> ProjectJobApplication:
+        try:
+            # Create new object
+            project_job_entity = ProjectJobApplicationEntity.from_model(application)
+
+            # Add new object to table and commit changes
+            self._session.add(project_job_entity)
+            self._session.commit()
+
+            # Return added object
+            return project_job_entity.to_model()
+        except Exception as e:
+            import traceback
+
+            print(f"Error in service post_application: {str(e)}")
+            print(traceback.format_exc())
+            raise
+
+    def remove_job_application(self, subject: User, id: int) -> None:
+        # First, query the job application entity
+        job_application_entity = (
+            self._session.query(ProjectJobApplicationEntity)
+            .filter(ProjectJobApplicationEntity.id == id)
+            .one_or_none()
+        )
+
+        # Check if the application exists
+        if not job_application_entity:
+            raise ResourceNotFoundException(f"No job application found with id: {id}")
+
+        # Check if the user is the owner of the application
+        if job_application_entity.user_id != subject.id:
+            raise ResourceNotFoundException(
+                f"User does not have permission to delete this job application"
+            )
+
+        # Delete the application
+        self._session.delete(job_application_entity)
+        self._session.commit()
+

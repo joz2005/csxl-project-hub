@@ -7,7 +7,7 @@ import { ProjectService } from '../project.service';
 import { AiResumeSearch } from '../widgets/ai-resume-search/ai-resume-search.widget';
 import { MatDialog } from '@angular/material/dialog';
 import { signal, computed } from '@angular/core';
-
+import { AddJob } from '../widgets/add-job/add-job.widget';
 
 @Component({
   selector: 'app-project',
@@ -39,20 +39,23 @@ export class ProjectPageComponent {
   public searchBarQuery = '';
   public projects: Signal<Project[]>;
   public fileName = '';
+  public profile: Profile;
 
   constructor(
     protected snackBar: MatSnackBar,
     private projectService: ProjectService,
     private gearService: NagivationAdminGearService,
+    private profileService: ProfileService,
     private dialog: MatDialog
   ) {
     this.projects = this.projectService.projects;
+    this.profile = this.profileService.profile()!;
   }
 
   recommendations = signal<Project[]>([]);
   isProcessing = signal(false);
 
-  openResumeUploadModal(): void {
+  openResumeUploadModol(): void {
     const dialogRef = this.dialog.open(AiResumeSearch, {
       width: '1000px',
       autoFocus: false
@@ -108,4 +111,24 @@ export class ProjectPageComponent {
       }
     });
   }
+  openAddJobModol(): void {
+    const dialogRef = this.dialog.open(AddJob, {
+      width: '1000px',
+      autoFocus: false,
+      maxWidth: 'none',
+      data: { profile: this.profile }
+    });
+  }
+
+  onDelete(projectId: number): void {
+  this.projectService.deleteProject(projectId).subscribe({
+    next: () => {
+      this.snackBar.open('Project deleted', 'Close', { duration: 2000 });
+    },
+    error: (err) => {
+      const message = err.error?.detail || err.message || 'Failed to delete project';
+      this.snackBar.open(message, 'Close', { duration: 5000 });
+    }
+  });
+}
 }

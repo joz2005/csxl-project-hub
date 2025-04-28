@@ -1,0 +1,19 @@
+@if(profile){
+<h1 class="title">Job Applications</h1>
+<div class="application-page">
+  <div class="applications-page">
+  <div class="application-list">
+  @for (pair of applicationProjects(); track pair.application.id) {
+    @if(profile.id===pair.application.user_id || profile.id === pair.application.poster_id){
+    <job-list
+      [application]="pair.application"
+      [project]="pair.project"
+      [profile]="profile"
+    ></job-list>
+    }
+  }
+</div>
+</div>
+</div>
+}
+

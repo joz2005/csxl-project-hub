@@ -1,0 +1,97 @@
+<h2 mat-dialog-title>Add Job Listing</h2>
+<mat-dialog-content>
+  <form [formGroup]="jobForm">
+    <div class="form-section">
+      <h3>Project Details</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Project Name</mat-label>
+        <input matInput formControlName="project_name" placeholder="Enter the name of your project">
+        @if (jobForm.get('project_name')?.hasError('required'))
+        {<mat-error>
+          A Project name is required
+        </mat-error>}
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Project Image</mat-label>
+        <input matInput formControlName="project_image" placeholder="Enter the URL of your project image">
+        @if (jobForm.get('project_image')?.hasError('required'))
+        {<mat-error>
+          A url of your project image is required
+        </mat-error>}
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Short Description</mat-label>
+        <textarea matInput formControlName="short_description" rows="2" placeholder="Brief overview for potential applicants"></textarea>
+        @if (jobForm.get('short_description')?.hasError('required'))
+        {<mat-error>
+          A Short description of your project is required
+        </mat-error>}
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Long Description</mat-label>
+        <textarea matInput formControlName="long_description" rows="4" placeholder="Detailed explanation of your project"></textarea>
+        @if (jobForm.get('long_description')?.hasError('required'))
+        {<mat-error>
+          A long description of your project is required
+        </mat-error>}
+      </mat-form-field>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="form-section">
+      <h3>Requirements</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Requirements</mat-label>
+        <textarea matInput formControlName="requirements" rows="3" placeholder="Skills and qualifications needed for this role"></textarea>
+        @if (jobForm.get('requirements')?.hasError('required'))
+        {<mat-error>
+          Requirements for Applicants applying to your project is required
+        </mat-error>}
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Additional Information</mat-label>
+        <textarea matInput formControlName="additional_info" rows="2" placeholder="Any other relevant information"></textarea>
+      </mat-form-field>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="form-section">
+      <h3>Contact Information</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Your contact email address">
+        @if (jobForm.get('email')?.hasError('required'))
+        {<mat-error>
+          Email is required
+        </mat-error>}
+        @else if (jobForm.get('email')?.hasError('email'))
+        {<mat-error>
+          Please enter a valid email address
+        </mat-error>}
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone_number" placeholder="Your contact phone number">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>LinkedIn</mat-label>
+        <input matInput formControlName="linked_in" placeholder="Your LinkedIn profile URL">
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-stroked-button color="warn" (click)="close()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="submitJob()" [disabled]="!isValid">
+    Create Job Listing
+  </button>
+</mat-dialog-actions>

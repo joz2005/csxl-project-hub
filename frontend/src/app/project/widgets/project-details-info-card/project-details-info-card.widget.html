@@ -1,85 +1,79 @@
 @if (project) {
-  <mat-pane>
+  <mat-card class="project-details-card">
     <mat-card-header>
-      <div class="header-row">
-        <img class="project-image" src="{{ project.image }}" />
-        <mat-card-title>{{ project.title }}</mat-card-title>
-        <mat-card-title>{{ project.author }}</mat-card-title>
-      </div>
-      <div class="links-row">
-        @if (project.email !== '') {
-          <div class="row">
-            <mat-icon class="secondary-icon">mail</mat-icon>
-            <p>
-              <a
-                class="font-secondary"
-                href="mailto:{{ project.email }}"
-                target="_blank"
-                >Email</a
-              >
-            </p>
-          </div>
-        }
-        @if (project.linked_in !== '') {
-          <div class="row">
-            <mat-icon
-              class="link-icons secondary-icon"
-              id="linkedin-icon"
-              svgIcon="linkedin"
-            />
-            <p>
-              <a
-                class="font-secondary"
-                [href]="project.linked_in"
-                target="_blank"
-                >LinkedIn</a
-              >
-            </p>
-          </div>
-        }
-      </div>
+      <mat-card-title class="title">{{ project.title }}</mat-card-title>
+      <mat-card-subtitle class="author">Job Posted By: <i>{{ project.author }}</i></mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
-      <p>{{ project.long_description || project.short_description }}</p>
+      <div>
+        <div class="content-grid">
+          <!-- Left: Text Sections -->
+          <div class="left-content">
+            <div>
+              <div class="section-title">Description</div>
+              <div class="section-content">
+                {{ project.long_description }}
+              </div>
+            </div>
+  
+            <div>
+              <div class="section-title">Requirements</div>
+              <div class="section-content">
+                {{ project.requirements }}
+              </div>
+            </div>
+            @if(project.additional_info){
+            <div>
+              <div class="section-title">Additional Info</div>
+              <div class="section-content">
+                {{ project.additional_info }}
+              </div>
+            </div>
+            }
+          </div>
+  
+          <!-- Right: Image + Contact -->
+          <div class="right-content">
+            <img class="project-image" [src]="project.image" alt="Project Image" />
+  
+            <div class="contact-box">
+              <p><strong>Email:</strong> {{ project.email }}</p>
+              @if (project.phone_number) {
+                <p><strong>Phone:</strong> {{ project.phone_number }}</p>
+              }
+              @if (project.linked_in) {
+                <p><strong>LinkedIn: </strong> 
+                  <a [href]="project.linked_in" target="_blank">
+                    {{project.linked_in}}
+                  </a>
+                </p>
+              }
+            </div>
+  
+          </div>
+        </div>
+
+        <!-- Bottom: Apply Form -->
+         <div class="button-actions">
+          <mat-card-actions>
+            <a
+            [routerLink]="['/projects']"> 
+              <button mat-flat-button>Back</button>
+            </a>
+          </mat-card-actions>
+
+          <mat-card-actions>
+            @if (isAuthor()) {
+              <button mat-flat-button color="warn" (click)="deleteProject()">Delete</button>
+            }
+            @else {
+              <button mat-flat-button (click)="openApplyJobDialog()">Apply</button>
+            }
+          </mat-card-actions>
+         </div>
+
+      </div>
     </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="showForm = !showForm">
-        Apply
-      </button>
-    </mat-card-actions>
-
-    <div *ngIf="showForm" class="apply-form">
-      <form (ngSubmit)="submitApplication()" #applicationForm="ngForm">
-        <mat-form-field appearance="fill">
-          <mat-label>Name</mat-label>
-          <input matInput name="name" [(ngModel)]="formData.name" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            type="email"
-            name="email"
-            [(ngModel)]="formData.email"
-            required
-          />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Message</mat-label>
-          <textarea
-            matInput
-            name="message"
-            [(ngModel)]="formData.message"
-          ></textarea>
-        </mat-form-field>
-
-        <button mat-flat-button color="accent" type="submit">
-          Submit Application
-        </button>
-      </form>
-    </div>
-  </mat-pane>
+  </mat-card>
 }

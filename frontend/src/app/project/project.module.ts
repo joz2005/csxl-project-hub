@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+
+import { ProjectFilterPipe } from './pipes/project-filter.pipe';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectPageComponent } from './project-page/project-page.component';
@@ -26,7 +29,11 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { AISearchBar } from './widgets/ai-search-bar/ai-search-bar.widget';
-import{ AiResumeSearch } from "./widgets/ai-resume-search/ai-resume-search.widget"
+import { AiResumeSearch } from './widgets/ai-resume-search/ai-resume-search.widget';
+import { AddJob } from './widgets/add-job/add-job.widget';
+import { ApplyJob } from './widgets/apply-job-dialog/apply-job-dialog.widget';
+import { JobList } from './widgets/job-listing/job-list.widget';
+import { JobApplicationsListComponent } from './job-applications-list/job-applications-list.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +43,11 @@ import{ AiResumeSearch } from "./widgets/ai-resume-search/ai-resume-search.widge
     ProjectDetailsInfoCard,
     AISearchBar,
     AiResumeSearch,
+    AddJob,
+    ApplyJob,
+    ProjectFilterPipe,
+    JobList,
+    JobApplicationsListComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +69,7 @@ import{ AiResumeSearch } from "./widgets/ai-resume-search/ai-resume-search.widge
     ProjectRoutingModule,
     RouterModule,
     SharedModule,
+    MatStepperModule
   ]
 })
 export class ProjectModule {}

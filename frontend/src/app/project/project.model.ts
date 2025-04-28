@@ -10,6 +10,7 @@
 /** Interface for Project Type (used on frontend for projects page) */
 export interface Project {
     id: number | null;
+    author_id: number | null;
     author: string;
     image: string;
     title: string;

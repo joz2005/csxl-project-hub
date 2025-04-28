@@ -14,6 +14,7 @@ class Project(BaseModel):
     """
 
     id: int | None
+    author_id: int | None
     author: str
     image: str
     title: str

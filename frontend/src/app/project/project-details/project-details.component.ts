@@ -1,46 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  ResolveFn,
-  Route
-} from '@angular/router';
-import { projectResolver } from '../project.resolver';
+  import { Component } from '@angular/core';
+  import {
+    ActivatedRoute,
+    ActivatedRouteSnapshot,
+    ResolveFn,
+    Route
+  } from '@angular/router';
+  import { projectResolver } from '../project.resolver';
+  import { Project } from '../project.model';
+  import { Profile, ProfileService } from '../../profile/profile.service';
 
-import { Project } from '../project.model';
-
-let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
-  return route.parent!.data['project'].title;
-};
-
-@Component({
-  selector: 'app-project-details',
-  templateUrl: './project-details.component.html',
-  styleUrl: './project-details.component.css'
-})
-export class ProjectDetailsComponent {
-  public static Route: Route = {
-    path: ':slug',
-    component: ProjectDetailsComponent,
-    resolve: {
-      project: projectResolver
-    },
-    children: [
-      {
-        path: '',
-        title: titleResolver,
-        component: ProjectDetailsComponent
-      }
-    ]
+  const titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
+    return route.parent!.data['project']?.title ?? 'Project Details';
   };
 
-  public project: Project;
-
-  constructor(private route: ActivatedRoute) {
-    const data = this.route.snapshot.data as {
-      project: Project;
+  @Component({
+    selector: 'app-project-details',
+    templateUrl: './project-details.component.html',
+    styleUrls: ['./project-details.component.css']
+  })
+  export class ProjectDetailsComponent {
+    public static Route: Route = {
+      path: ':slug',
+      component: ProjectDetailsComponent,
+      resolve: {
+        project: projectResolver
+      },
+      children: [
+        {
+          path: '',
+          title: titleResolver,
+          component: ProjectDetailsComponent
+        }
+      ]
     };
 
-    this.project = data.project;
+    public project?: Project;
+    public profile: Profile;
+
+    constructor(private route: ActivatedRoute, private profileService: ProfileService) {
+      const data = this.route.snapshot.data as { project: Project };
+      this.project = data.project;
+      this.profile = this.profileService.profile()!;
+    }
   }
-}

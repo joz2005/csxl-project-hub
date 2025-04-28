@@ -1,33 +1,41 @@
-<mat-pane class="card" appearance="outlined">
-    <!-- Project Name -->
-    <mat-card-header class="header">
-      <!-- Container for Logo and Name to allow for left alignment -->
-      <div class="left-container">
-        <!-- Organization Name -->
-        <mat-card-title
-          class="title"
-          [matTooltip]="project.title"
-          matTooltipPosition="above"
-          [matTooltipDisabled]="project.title.length < 35">
-          {{project.title}}
-        </mat-card-title>
+<mat-card class="project-card">
+  <div class="card-content">
+    <!-- Left: Image -->
+    <div class="card-image-container">
+      <img class="card-image" [src]="project.image"/>
+    </div>
+
+    <!-- Right: Text and Details Button -->
+    <div class="card-text-container">
+      <div class="card-header">
+        <div class="card-title" [matTooltip]="project.title" matTooltipPosition="above" [matTooltipDisabled]="project.title.length < 35">
+          {{ project.title }}
+        </div>
+        <div class="card-author">
+          by {{ project.author }}
+        </div>
       </div>
-    </mat-card-header>
-    <!-- <mat-card-title
-        
-      </mat-card-title> -->
 
-      <mat-card-content class="description">
-        <p>
-          {{ project.short_description }}
-        </p>
-      </mat-card-content>
+      <div class="card-description">
+        {{ project.short_description }}
+      </div>
 
-      <mat-card-actions>
-        <a
-        class="details-link"
-        [routerLink]="['/projects', project.slug]"> 
-        <button mat-flat-button>Details</button>
-      </a>
-    </mat-card-actions>
-</mat-pane>
+      <div class="card-details-button">
+        <!-- The .id is being used because otherwise when a non signed in user is trying to click details it won't work-->
+        @if (profile?.id === project.author_id) {
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="onDelete()"
+            aria-label="Delete project"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        }
+        <a class="details-link" [routerLink]="['/projects', project.slug]">
+          <button mat-flat-button color="primary">Details</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</mat-card>

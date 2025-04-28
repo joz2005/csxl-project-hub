@@ -1,21 +1,58 @@
+@if(profile){
 <search-bar
   class="project-search-bar mat-csxl-search-bar"
   [(searchBarQuery)]="searchBarQuery" />
+  <div class="button-group">
+    <div class="file-upload">
+      <button
+        mat-fab extended
+        color="primary"
+        class="upload-btn"
+        (click)="openResumeUploadModol()"
+      >
+        <mat-icon>attach_file</mat-icon>
+        Recommend Projects
+      </button>
+    </div>
+    <div class="add-job">
+      <button
+        mat-fab extended
+        color="primary"
+        class="upload-btn"
+        (click)="openAddJobModol()"
+      >
+        <mat-icon>note_add</mat-icon>
+        Add a Project
+      </button>
+    </div>
+    <div class="application-list">
+      <button
+        mat-fab extended
+        color="primary"
+        class="upload-btn"
+        routerLink='/projects/applications'
+      >
+        <mat-icon>list_alt</mat-icon>
+        Applications
+      </button>
+    </div>
+  </div>
 
-<div class="file-upload">
-  <button
-    mat-mini-fab
-    color="primary"
-    class="upload-btn"
-    (click)="openResumeUploadModal()"
-  >
-    <mat-icon>attach_file</mat-icon>
-  </button>
-</div>
 
 <div class="project-cards">
-  <!-- Display card for each project, potentially filtered based on the search query. -->
-  @for (project of projects(); track project.id) {
-  <project-card class="card" [project]="project" />
+  <!-- 
+  Display card for each project, potentially filtered based on the search query. 
+  This resource was used for the event emitter stuff https://v17.angular.io/guide/inputs-outputs
+  -->
+
+  @for (project of projects() | projectFilter: searchBarQuery;
+  track project.id) {
+  <project-card
+    class="card"
+    [project]="project"
+    [profile]="profile"
+    (deleteProject)="onDelete($event)"
+   />
   }
 </div>
+}

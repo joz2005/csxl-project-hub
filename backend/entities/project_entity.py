@@ -12,10 +12,11 @@ class ProjectEntity(EntityBase):
     # Name for the organizations table in the PostgreSQL database
     __tablename__ = "project"
 
-    # Organization properties (columns in the database table)
+    # Project properties (columns in the database table)
 
     # Unique ID for the organization
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    author_id: Mapped[int] = mapped_column(Integer, nullable=False)
     author: Mapped[str] = mapped_column(String, nullable=False)
     image: Mapped[str] = mapped_column(String, nullable=True)
     title: Mapped[str] = mapped_column(String, nullable=False)
@@ -28,7 +29,6 @@ class ProjectEntity(EntityBase):
     linked_in: Mapped[str] = mapped_column(String)
     public: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     slug: Mapped[str] = mapped_column(String, nullable=False, unique=True)
-      
 
     @classmethod
     def from_model(cls, model: Project) -> Self:
@@ -42,6 +42,7 @@ class ProjectEntity(EntityBase):
         """
         return cls(
             id=model.id,
+            author_id=model.author_id,
             author=model.author,
             image=model.image,
             title=model.title,
@@ -65,6 +66,7 @@ class ProjectEntity(EntityBase):
         """
         return Project(
             id=self.id,
+            author_id=self.author_id,
             author=self.author,
             image=self.image,
             title=self.title,
@@ -88,6 +90,7 @@ class ProjectEntity(EntityBase):
         """
         return ProjectDetails(
             id=self.id,
+            author_id=self.author_id,
             author=self.author,
             image=self.image,
             title=self.title,
