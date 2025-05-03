@@ -1,6 +1,6 @@
 # Projects Feature Technical Specification
 
-> Written by []() for the CSXL Web Application.<br> _Last Updated: 05/02/2025_ <br>
+> Written by [Kamal Deep Vasireddy](https://github.com/Kamal135792) [Joseph Zheng](https://github.com/joz2005) [Zhi Hang Yang](https://github.com/zyang310) [Kaw Thang Bu](https://github.com/kawbu)for the CSXL Web Application.<br> _Last Updated: 05/02/2025_ <br>
 > Inspired by [Ajay Gandecha](https://github.com/ajaygandecha)
 
 This document outlines the technical specifications for the Projects feature of the CSXL web application. This feature introduces 2 new database tables, new API endpoints, and multiple Angular components to support posting projects, finding projects, project applications, and AI-driven recommendations.
