@@ -96,7 +96,6 @@ def test_delete_nonexistent_project(project_svc_integration: ProjectService):
     with pytest.raises(ResourceNotFoundException):
         project_svc_integration.remove_application(root, 9999)
 
-
 def test_post_resume(project_svc_integration: ProjectService):
     """Test posting a resume."""
     mock_file = MagicMock()

@@ -66,7 +66,6 @@ def project_svc(session: Session, permission_svc_mock: PermissionService):
         openai_svc=create_autospec(OpenAIService),
     )
 
-
 @pytest.fixture()
 def project_svc_integration(session: Session):
     """This fixture is used to test the ProjectService class with a real PermissionService."""
@@ -75,8 +74,6 @@ def project_svc_integration(session: Session):
         permission=PermissionService(session),
         openai_svc=create_autospec(OpenAIService),
     )
-
-
 
 @pytest.fixture()
 def event_svc_integration(session: Session, user_svc_integration: UserService):
