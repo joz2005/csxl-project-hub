@@ -4,6 +4,10 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .entity_base import EntityBase
 from ..models.project_job_application import ProjectJobApplication
 
+__authors__ = ["Zhi Hang Yang", "Joseph Zheng", "Kaw Bu", "Kamal Deep Vasireddy"]
+__copyright__ = "Copyright 2025"
+__license__ = "MIT"
+
 
 class ProjectJobApplicationEntity(EntityBase):
     """Database schema for the `project_job_application` table."""
@@ -12,7 +16,9 @@ class ProjectJobApplicationEntity(EntityBase):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     poster_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
-    project_id: Mapped[int] = mapped_column(ForeignKey("project.id", ondelete="CASCADE"), nullable=False)
+    project_id: Mapped[int] = mapped_column(
+        ForeignKey("project.id", ondelete="CASCADE"), nullable=False
+    )
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
     personal_statement: Mapped[str] = mapped_column(String, nullable=False)
     experience: Mapped[str] = mapped_column(String, nullable=False)

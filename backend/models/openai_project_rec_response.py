@@ -5,7 +5,8 @@ __copyright__ = "Copyright 2025"
 __license__ = "MIT"
 
 
-class Resume(BaseModel):
+class OpenAIProjectRecResponse(BaseModel):
+    """Response model for OpenAI test endpoint."""
 
-    id: int | None
-    content: str
+    recommended_project: str
+    reasoning: str

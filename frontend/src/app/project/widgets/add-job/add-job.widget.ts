@@ -1,3 +1,12 @@
+/**
+ * The Add job Widgets provide a modol base interface for developers to upload their project.
+ * It also seperates the implementation from the main project page, promoting decoupled code.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component, inject, Input, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';

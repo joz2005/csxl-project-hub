@@ -21,8 +21,8 @@ from ..models.project_job_application import ProjectJobApplication
 from ..entities.project_job_app_entity import ProjectJobApplicationEntity
 
 
-__authors__ = ["Kaw BU", "Joseph", "Kamal Deep", "Zhi Yang"]
-__copyright__ = "Copyright 2023"
+__authors__ = ["Zhi Hang Yang", "Joseph Zheng", "Kaw Bu", "Kamal Deep Vasireddy"]
+__copyright__ = "Copyright 2025"
 __license__ = "MIT"
 
 

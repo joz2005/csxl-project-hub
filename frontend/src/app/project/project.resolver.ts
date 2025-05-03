@@ -1,3 +1,12 @@
+/**
+ * The Project Resolver allows the projects to be injected into the routes
+ * of components.
+ *
+ * @author Kamal Deep Vasireddy, Joseph Zheng, Zhi Hang Yang, Kaw Bu
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { Project } from './project.model';

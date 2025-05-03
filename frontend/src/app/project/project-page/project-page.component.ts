@@ -1,3 +1,16 @@
+/**
+ * The Project Page Component serves as a hub for students to browse and engage with
+ * all available software development projects within the UNC CS community.
+ * It enables developers to post open positions on their projects and allows
+ * applicants to upload resumes, receive AI-driven project recommendations, and apply directly.
+ * This platform promotes collaboration by connecting student developers with peers
+ * interested in contributing to impactful technical work and in the process add something to their resume.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component, Signal, effect } from '@angular/core';
 import { Project } from '../project.model';
 import { MatSnackBar } from '@angular/material/snack-bar';

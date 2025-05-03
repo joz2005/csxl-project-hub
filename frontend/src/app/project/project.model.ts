@@ -2,7 +2,7 @@
  * The Project Model defines the shape of Project data
  * retrieved from the Project Service and the API.
  *
- * @author Kamal Deep Vasireddy, Joseph Zheng, Z, Kaw Za Thang Bu, Diddy Developer
+ * @author Kamal Deep Vasireddy, Joseph Zheng, Zhi Hang Yang, Kaw Thang Bu
  * @copyright 2025
  * @license MIT
  */

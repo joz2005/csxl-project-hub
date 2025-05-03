@@ -1,3 +1,12 @@
+/**
+ * The Project Service abstracts HTTP requests to the backend
+ * from the components.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Injectable, WritableSignal, computed, signal } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
@@ -55,15 +64,13 @@ export class ProjectService {
     );
   }
   deleteProject(id: number) {
-    return this.http
-      .delete<void>(`/api/projects/${id}`)
-      .pipe(
-        tap(() => {
-          this.projectsSignal.update(projects =>
-            projects.filter(p => p.id !== id)
-          );
-        })
-      );
+    return this.http.delete<void>(`/api/projects/${id}`).pipe(
+      tap(() => {
+        this.projectsSignal.update((projects) =>
+          projects.filter((p) => p.id !== id)
+        );
+      })
+    );
   }
 
   getJobApplications() {

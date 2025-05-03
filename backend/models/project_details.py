@@ -2,8 +2,8 @@ from pydantic import BaseModel
 from .project import Project
 from .event import EventOverview
 
-__authors__ = ["Ajay Gandecha", "Jade Keegan", "Brianna Ta", "Audrey Toney"]
-__copyright__ = "Copyright 2023"
+__authors__ = ["Zhi Hang Yang", "Joseph Zheng", "Kaw Bu", "Kamal Deep Vasireddy"]
+__copyright__ = "Copyright 2025"
 __license__ = "MIT"
 
 

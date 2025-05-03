@@ -1,3 +1,12 @@
+/**
+ * The Apply Job Widget provide a modol base interface for applicants to apply to projects.
+ * It also seperates the implementation from the main project page, promoting decoupled code.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component, Inject, inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';

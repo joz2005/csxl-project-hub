@@ -15,6 +15,10 @@ from sqlalchemy.orm import Session
 
 from backend.services.exceptions import ResourceNotFoundException
 
+__authors__ = ["Zhi Hang Yang", "Joseph Zheng", "Kaw Bu", "Kamal Deep Vasireddy"]
+__copyright__ = "Copyright 2025"
+__license__ = "MIT"
+
 
 class ProjectAIService:
 

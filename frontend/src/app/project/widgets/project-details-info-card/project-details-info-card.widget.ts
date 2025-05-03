@@ -1,3 +1,12 @@
+/**
+ * The Project Details Info Card widget abstracts the implementation of each
+ * individual organization detail card from the whole organization detail page.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component, Input } from '@angular/core';
 import { Project } from '../../project.model';
 import { ApplyJob } from '../apply-job-dialog/apply-job-dialog.widget';
@@ -16,7 +25,6 @@ export class ProjectDetailsInfoCard {
   @Input() project: Project | undefined;
   @Input() profile!: Profile;
 
-
   showForm = false;
 
   constructor(
@@ -24,7 +32,7 @@ export class ProjectDetailsInfoCard {
     private projectService: ProjectService,
     private snackBar: MatSnackBar,
     private router: Router
-    ) {}
+  ) {}
 
   openApplyJobDialog(): void {
     const dialogRef = this.dialog.open(ApplyJob, {
@@ -39,7 +47,7 @@ export class ProjectDetailsInfoCard {
     if (!this.project || !this.profile) return false;
     return this.profile.id === this.project.author_id;
   }
-  
+
   deleteProject(): void {
     if (!this.project) return;
 
@@ -49,7 +57,8 @@ export class ProjectDetailsInfoCard {
         this.router.navigate(['/projects']);
       },
       error: (err) => {
-        const message = err.error?.detail || err.message || 'Failed to delete project';
+        const message =
+          err.error?.detail || err.message || 'Failed to delete project';
         this.snackBar.open(message, 'Close', { duration: 5000 });
       }
     });

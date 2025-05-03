@@ -1,3 +1,12 @@
+/**
+ * The Job List widget is an Angular component that encapsulates the logic and UI for
+ * managing a single job application within a project. It is designed to be used inside
+ * a Job Application List compnonent.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
 import { Component, Input, ViewChild, TemplateRef } from '@angular/core';
 import { JobApplication } from '../../job-application.model';
 import { Project } from '../../project.model';

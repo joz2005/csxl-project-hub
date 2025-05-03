@@ -1,3 +1,14 @@
+/**
+ * The Project Module couples all features of the Project feature
+ * into a single unit that can be loaded at once. This decreases load time
+ * for the overall application and decouples this feature from other features
+ * in the application.
+ *
+ * @author Kamal Deep Vasireddy, Joseph Zheng, Zhi Hang Yang, Kaw Bu
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

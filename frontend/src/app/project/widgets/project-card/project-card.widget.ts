@@ -1,3 +1,12 @@
+/**
+ * The Project Card widget abstracts the implementation of each
+ * individual project card from the whole project page.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Project } from '../../project.model';
 import { Profile } from '../../../profile/profile.service';

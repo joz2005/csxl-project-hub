@@ -1,7 +1,14 @@
+/**
+ * The Job Application List Compmonent lets Developers and Admins view the applications for their job.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component, OnInit, computed } from '@angular/core';
 import { ProjectService } from '../project.service';
 import { Profile, ProfileService } from '../../profile/profile.service';
-
 
 @Component({
   selector: 'job-applications-list',
@@ -19,7 +26,6 @@ export class JobApplicationsListComponent implements OnInit {
   projects = this.projectService.projects;
   public profile: Profile;
 
-
   applicationProjects = computed(() => {
     const apps = this.applications();
     const projs = this.projects();
@@ -29,7 +35,10 @@ export class JobApplicationsListComponent implements OnInit {
     }));
   });
 
-  constructor(private projectService: ProjectService, private profileService: ProfileService) {
+  constructor(
+    private projectService: ProjectService,
+    private profileService: ProfileService
+  ) {
     this.profile = this.profileService.profile()!;
   }
 

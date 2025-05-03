@@ -5,6 +5,10 @@ from typing import Self
 from ..models.project import Project
 from ..models.project_details import ProjectDetails
 
+__authors__ = ["Zhi Hang Yang", "Joseph Zheng", "Kaw Bu", "Kamal Deep Vasireddy"]
+__copyright__ = "Copyright 2025"
+__license__ = "MIT"
+
 
 class ProjectEntity(EntityBase):
     """Serves as the database model schema defining the shape of the `Organization` table"""

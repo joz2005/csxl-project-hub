@@ -1,3 +1,12 @@
+/**
+ * The Project Routing Module holds all of the routes that are children
+ * to the path /projects/...
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectPageComponent } from './project-page/project-page.component';

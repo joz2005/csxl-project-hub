@@ -1,3 +1,12 @@
+/**
+ * The AiResumeSearch widget provide a modol base interface for users to seek assistance from AI to for project recommendation.
+ * It also seperates the implementation from the main project page, promoting decoupled code.
+ *
+ * @author Zhi Hang Yang, Joseph Zheng, Kaw Bu, Kamal Deep Vasireddy
+ * @copyright 2025
+ * @license MIT
+ */
+
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -10,7 +19,7 @@ export class AiResumeSearch {
   public selectedFile: File | null = null;
 
   public get isValid(): boolean {
-    return !!this.selectedFile
+    return !!this.selectedFile;
   }
 
   constructor(protected dialogRef: MatDialogRef<AiResumeSearch>) {}
