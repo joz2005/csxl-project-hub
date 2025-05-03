@@ -124,6 +124,49 @@ projects = [
     project5,
 ]
 
+conflicting_id_project = Project(
+    id=2,
+    author_id=12,
+    author="Sophia Lee",
+    image="https://www.creativefabrica.com/wp-content/uploads/2022/12/02/Mental-Health-Logo-with-Brain-and-Green-Graphics-49948798-1.jpg",
+    title="MindMate: Student Mental Health Companion",
+    short_description="A mobile app to support student mental health through journaling and mindfulness.",
+    long_description=(
+        "MindMate is a student-focused mental wellness app that encourages journaling, provides guided "
+        "meditations, and integrates mental health resources from UNC. The goal is to support emotional well-being, "
+        "reduce stigma, and provide an accessible support tool for students."
+    ),
+    requirements="- Experience with Swift or React Native\n- Interest in mental health advocacy\n- Bonus: UI/UX design experience",
+    additional_info="Featured during UNC Mental Health Awareness Week.",
+    phone_number="1234567890",
+    linked_in="https://linkedin.com/in/liamjohnson",
+    public=True,
+    slug="campus-fitness-tracker",
+    email="joe@gmail.com",
+)
+
+to_add = Project(
+    id=6,
+    author_id=1,
+    author="Rhonda Root",
+    image="https://www.creativefabrica.com/wp-content/uploads/2022/12/02/Mental-Health-Logo-with-Brain-and-Green-Graphics-49948798-1.jpg",
+    title="Campus Fitness Tracker",
+    short_description="A fitness app to help students track workouts and nutrition.",
+    long_description=(
+        "Campus Fitness Tracker is a mobile app designed to help students monitor their fitness goals, "
+        "track workouts, and log nutrition. It includes features like workout plans, meal tracking, and "
+        "integration with fitness devices."
+    ),
+    requirements="- Experience with mobile app development (iOS or Android)\n- Familiarity with fitness APIs\n- Bonus: Nutrition knowledge",
+    additional_info="In collaboration with Campus Recreation.",
+    phone_number="1234567890",
+    linked_in="https://linkedin.com/in/liamjohnson",
+    public=True,
+    slug="campus-fitness-tracker",
+    email="joe@gmail.com",
+)
+
+
 def insert_fake_data(session: Session):
     """Inserts fake project data into the test session."""
     global projects
@@ -137,3 +180,24 @@ def insert_fake_data(session: Session):
     reset_table_id_seq(session, ProjectEntity, ProjectEntity.id, len(projects) + 1)
 
     session.commit()
+
+
+from sqlalchemy.orm import Session
+from backend.entities.project_entity import ProjectEntity
+
+
+def insert_project_data(session: Session):
+    """Insert test projects into the database"""
+    entities = [ProjectEntity.from_model(p) for p in projects]
+    session.add_all(entities)
+    reset_table_id_seq(session, ProjectEntity, ProjectEntity.id, len(projects) + 1)
+    session.commit()
+
+
+# Update the fixture to include projects
+@pytest.fixture(autouse=True)
+def fake_data_fixture(session: Session):
+    insert_project_data(session)  # Insert projects first
+    insert_fake_data(session)  # Then insert job applications
+    yield
+    session.rollback()

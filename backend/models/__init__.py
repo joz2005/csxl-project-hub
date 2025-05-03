@@ -17,6 +17,10 @@ from .event_registration import (
     EventRegistration,
     NewEventRegistration,
 )
+from .project import Project
+from .project_details import ProjectDetails
+from .project_job_application import ProjectJobApplication
+
 from .registration_type import RegistrationType
 
 __authors__ = ["Kris Jordan"]

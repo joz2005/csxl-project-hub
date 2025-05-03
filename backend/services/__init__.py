@@ -9,3 +9,4 @@ from .room import RoomService
 from .article import ArticleService
 from .application import ApplicationService
 from .project import ProjectService
+from .openai import OpenAIService

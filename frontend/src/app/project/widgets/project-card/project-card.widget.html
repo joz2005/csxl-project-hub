@@ -22,7 +22,7 @@
 
       <div class="card-details-button">
         <!-- The .id is being used because otherwise when a non signed in user is trying to click details it won't work-->
-        @if (profile?.id === project.author_id) {
+        @if (profile.id === project.author_id) {
           <button
             mat-icon-button
             color="warn"

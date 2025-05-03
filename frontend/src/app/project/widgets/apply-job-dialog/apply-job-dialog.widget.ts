@@ -57,42 +57,44 @@ export class ApplyJob {
     this.dialogRef.close();
   }
 
-  submitJobApplication(): void {
-    if (this.isValid) {
-      const formValue = this.jobForm.value;
+  submitJobApplication(retries: number = 3): void {
+    if (!this.isValid) return;
 
-      const job_application = {
-        id: Math.floor(Math.random() * 100),
-        poster_id: this.project.author_id,
-        user_id: this.profile.id,
-        project_id: this.project.id,
-        personal_statement: formValue.personal_statement,
-        experience: formValue.experience,
-        gpa: formValue.gpa,
-        skills: formValue.skills,
-        contact: formValue.skills
-      };
+    const formValue = this.jobForm.value;
 
-      console.log(job_application);
+    const generateJobApplication = () => ({
+      id: Math.floor(Math.random() * 1000000),
+      poster_id: this.project.author_id,
+      user_id: this.profile.id,
+      project_id: this.project.id,
+      personal_statement: formValue.personal_statement,
+      experience: formValue.experience,
+      gpa: formValue.gpa,
+      skills: formValue.skills,
+      contact: formValue.contact
+    });
 
-      this.projectService.postJobApplication(job_application).subscribe({
-        next: () => {
-          this.snackBar.open('Applied to this project successfully', 'Close', {
-            duration: 2000
-          });
-          this.dialogRef.close(job_application);
-        },
-        error: (error) => {
+    const job_application = generateJobApplication();
+
+    this.projectService.postJobApplication(job_application).subscribe({
+      next: () => {
+        this.snackBar.open('Applied to this project successfully', 'Close', {
+          duration: 2000
+        });
+        this.dialogRef.close(job_application);
+      },
+      error: (error) => {
+        if (retries > 0) {
+          this.submitJobApplication(retries - 1); // retry with new ID
+        } else {
           this.snackBar.open(
             `Failed to Apply: ${error.error?.detail || 'Unknown error'}`,
             'Close',
-            {
-              duration: 5000
-            }
+            { duration: 5000 }
           );
-          console.error('Error creating job listing:', error);
+          console.error('Error creating job application:', error);
         }
-      });
-    }
+      }
+    });
   }
 }

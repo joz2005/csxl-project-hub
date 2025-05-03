@@ -11,6 +11,8 @@ from ...services import (
     EventService,
     RoomService,
     ApplicationService,
+    ProjectService,
+    OpenAIService,
 )
 from ...services.academics import HiringService
 from ...services.article import ArticleService
@@ -53,6 +55,27 @@ def role_svc(session: Session, permission_svc_mock: PermissionService):
 def organization_svc_integration(session: Session):
     """This fixture is used to test the OrganizationService class with a real PermissionService."""
     return OrganizationService(session, PermissionService(session))
+
+
+@pytest.fixture()
+def project_svc(session: Session, permission_svc_mock: PermissionService):
+    """This fixture is used to test the ProjectService class with a mocked PermissionService."""
+    return ProjectService(
+        session,
+        permission=permission_svc_mock,
+        openai_svc=create_autospec(OpenAIService),
+    )
+
+
+@pytest.fixture()
+def project_svc_integration(session: Session):
+    """This fixture is used to test the ProjectService class with a real PermissionService."""
+    return ProjectService(
+        session,
+        permission=PermissionService(session),
+        openai_svc=create_autospec(OpenAIService),
+    )
+
 
 
 @pytest.fixture()

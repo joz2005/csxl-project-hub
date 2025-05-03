@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 from ....models.project_job_application import ProjectJobApplication
 from ....entities.project_job_app_entity import ProjectJobApplicationEntity
 from ..reset_table_id_seq import reset_table_id_seq
+from ....models.project import Project
+from ....entities.project_entity import ProjectEntity
+from .project_demo_data import projects
 
 __authors__ = ["Kaw Bu"]
 __copyright__ = "Copyright 2025"
@@ -46,6 +49,7 @@ application3 = ProjectJobApplication(
 
 applications = [application1, application2, application3]
 
+
 def insert_fake_data(session: Session):
     global applications
     entities = []
@@ -63,8 +67,18 @@ def insert_fake_data(session: Session):
 
     session.commit()
 
+
+def insert_project_data(session: Session):
+    entities = [ProjectEntity.from_model(p) for p in projects]
+    session.add_all(entities)
+    reset_table_id_seq(session, ProjectEntity, ProjectEntity.id, len(projects) + 1)
+    session.commit()
+
+
+# Update the fixture
 @pytest.fixture(autouse=True)
 def fake_data_fixture(session: Session):
-    insert_fake_data(session)
-    session.commit()
+    insert_project_data(session)  # Insert projects
+    insert_fake_data(session)  # Insert job applications
     yield
+    session.rollback()

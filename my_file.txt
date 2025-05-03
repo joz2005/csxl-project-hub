@@ -1,0 +1,41 @@
+JOHN DOE
+123 Main Street • Anytown, ST 12345 • (555) 123-4567 • john.doe@email.com • linkedin.com/in/johndoe
+
+PROFESSIONAL SUMMARY
+Results-driven software engineer with 5+ years of experience in full-stack development, specializing in JavaScript, Python, and cloud-based solutions. Proven track record of optimizing system performance and leading cross-functional teams to deliver scalable applications. Passionate about clean code, agile methodologies, and mentoring junior developers.
+
+TECHNICAL SKILLS
+
+Languages: JavaScript (ES6+), Python, Java, SQL, HTML/CSS
+Frameworks: React, Node.js, Django, Express
+Databases: MongoDB, PostgreSQL, Firebase
+Tools & Platforms: Git, Docker, AWS (EC2, S3, Lambda), CI/CD pipelines
+Other: RESTful APIs, Agile/Scrum, Unit Testing (Jest, PyTest)
+PROFESSIONAL EXPERIENCE
+
+Senior Software Engineer
+Tech Solutions Inc. – Anytown, ST | Jan 2021 – Present
+
+Led a team of 4 developers to redesign a legacy e-commerce platform, improving load times by 40%.
+Developed a microservices-based backend using Node.js and AWS Lambda, reducing server costs by 25%.
+Mentored junior engineers through code reviews and pair programming, improving team productivity.
+Software Developer
+Innovate Apps LLC – Somewhere, ST | Jun 2018 – Dec 2020
+
+Built a React-based dashboard for real-time analytics, adopted by 50+ enterprise clients.
+Automated deployment pipelines using GitHub Actions, cutting release cycles by 30%.
+Collaborated with UX designers to implement responsive UI components, boosting user engagement.
+EDUCATION
+Bachelor of Science in Computer Science
+State University – Anytown, ST | Graduated May 2018
+
+GPA: 3.7/4.0 | Dean’s List (3 Semesters)
+Relevant Coursework: Data Structures, Algorithms, Cloud Computing
+PROJECTS
+
+TaskMaster API (GitHub: github.com/johndoe/taskmaster) – A RESTful task management system built with Django and React.
+Budget Tracker – A PWA for expense tracking using Firebase and Service Workers.
+CERTIFICATIONS
+
+AWS Certified Developer – Associate (2023)
+Scrum Master Certification (CSM) – 2022

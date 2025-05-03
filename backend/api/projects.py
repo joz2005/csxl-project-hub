@@ -66,11 +66,14 @@ def get_project_job_applications(
     # Return all projects
     return project_service.get_all_project_job_applications()
 
+
 @api.delete(
     "/job-applications/{id}",
     responses={404: {"model": None}},
     response_model=None,
-    tags=["Projects"],  # You can make a new tag "Job Applications" if you want cleaner Swagger
+    tags=[
+        "Projects"
+    ],  # You can make a new tag "Job Applications" if you want cleaner Swagger
 )
 def remove_job_application(
     id: int,
@@ -90,7 +93,6 @@ def remove_job_application(
     """
 
     project_service.remove_job_application(subject, id)
-
 
 
 @api.post(

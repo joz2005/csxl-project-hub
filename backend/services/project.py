@@ -89,6 +89,7 @@ class ProjectService:
 
     def post_application(self, subject: User, application: Project) -> Project:
         try:
+            self._permission.enforce(subject, "project.post_application", f"project")
             # Checks if the organization already exists in the table
             if application.id:
                 # Set id to None so database can handle setting the id
@@ -132,7 +133,6 @@ class ProjectService:
         self._session.delete(project_entity)
         self._session.commit()
 
-
     def post_resume(self, resume: UploadFile) -> Resume:
         random_uuid = uuid.uuid4()
         content = ""
@@ -144,6 +144,7 @@ class ProjectService:
                     content += extracted_text
         except Exception as e:
             print(f"Error extracting PDF content: {e}")
+        print(content)
         return Resume(id=random_uuid.int, content=content)
 
     def get_resume(self, id: int) -> Resume:
@@ -217,8 +218,11 @@ class ProjectService:
         if not job_application_entity:
             raise ResourceNotFoundException(f"No job application found with id: {id}")
 
-        # Check if the user is the owner of the application
-        if job_application_entity.user_id != subject.id:
+        # Check if the user is the owner of the application or the poster of the corresponding job
+        if (
+            job_application_entity.user_id != subject.id
+            and job_application_entity.poster_id != subject.id
+        ):
             raise ResourceNotFoundException(
                 f"User does not have permission to delete this job application"
             )
@@ -226,4 +230,3 @@ class ProjectService:
         # Delete the application
         self._session.delete(job_application_entity)
         self._session.commit()
-
