@@ -80,8 +80,10 @@ export class ProjectPageComponent {
 
             const origin = window.location.origin;
             let rv: String = '';
-            response.listings.forEach((element: { slug: string }) => {
-              rv += `${origin}/projects/${element.slug}, `;
+            let most_fit: number = 1;
+            response.listings.forEach((element: { title: string }) => {
+              rv += `${most_fit}. ${element.title}` + ' ';
+              most_fit += 1;
             });
             this.snackBar.open(
               response.message || 'Found matching projects! ' + rv,
