@@ -101,7 +101,6 @@ def test_delete_nonexistent_project(project_svc_integration: ProjectService):
         project_svc_integration.remove_application(root, 9999)
 
 
-<<<<<<< HEAD
 def test_post_job_application(project_svc_integration: ProjectService):
     """Test Job Application Posting."""
     mock_permission = create_autospec(PermissionService)
