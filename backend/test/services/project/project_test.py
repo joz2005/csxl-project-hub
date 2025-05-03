@@ -124,7 +124,7 @@ def test_delete_application(project_svc_integration: ProjectService):
     project_svc_integration.remove_job_application(root, 1)
     with pytest.raises(ResourceNotFoundException):
         project_svc_integration.remove_job_application(root, 1)
-=======
+
 def test_post_resume(project_svc_integration: ProjectService):
     """Test posting a resume."""
     mock_file = MagicMock()
@@ -145,4 +145,3 @@ def test_post_resume(project_svc_integration: ProjectService):
         assert isinstance(result, Resume)
         assert result.content == "Test resume content"
         assert result.id is not None
->>>>>>> 79843e91bcbe582523f08fd293a945de4e053a8e
