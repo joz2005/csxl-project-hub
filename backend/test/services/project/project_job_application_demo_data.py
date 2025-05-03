@@ -47,6 +47,18 @@ application3 = ProjectJobApplication(
     contact="sally.student@example.com",
 )
 
+to_add_job_app = ProjectJobApplication(
+    id=4,
+    project_id=5,
+    poster_id=11,
+    user_id=1,
+    personal_statement="Something Personal.",
+    experience="Cashier",
+    gpa=3.8,
+    skills="Full-stack web development (MERN), LinkedIn scraping, resume critique",
+    contact="rhonda_root@example.com",
+)
+
 applications = [application1, application2, application3]
 
 

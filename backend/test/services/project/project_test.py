@@ -21,6 +21,10 @@ from backend.test.services.project.project_demo_data import (
     conflicting_id_project,
     to_add,
 )
+from backend.test.services.project.project_job_application_demo_data import (
+    applications,
+    to_add_job_app
+)
 
 # Data Models for Fake Data Inserted in Setup
 from backend.test.services.user_data import root, user
@@ -96,6 +100,32 @@ def test_delete_nonexistent_project(project_svc_integration: ProjectService):
     with pytest.raises(ResourceNotFoundException):
         project_svc_integration.remove_application(root, 9999)
 
+
+<<<<<<< HEAD
+def test_post_job_application(project_svc_integration: ProjectService):
+    """Test Job Application Posting."""
+    mock_permission = create_autospec(PermissionService)
+    project_svc_integration._permission = mock_permission
+    application = project_svc_integration.post_job_application(root, to_add_job_app)
+    assert application is not None
+    assert application.id == to_add_job_app.id
+
+
+def test_get_jobs(project_svc_integration: ProjectService):
+    """Test All Jobs Applicaion Fetching."""
+    application = project_svc_integration.get_all_project_job_applications()
+    assert application is not None
+    assert len(application) == 3
+
+
+def test_delete_application(project_svc_integration: ProjectService):
+    "Test deletion for Job Applications."
+    mock_permission = create_autospec(PermissionService)
+    project_svc_integration._permission = mock_permission
+    project_svc_integration.remove_job_application(root, 1)
+    with pytest.raises(ResourceNotFoundException):
+        project_svc_integration.remove_job_application(root, 1)
+=======
 def test_post_resume(project_svc_integration: ProjectService):
     """Test posting a resume."""
     mock_file = MagicMock()
@@ -116,3 +146,4 @@ def test_post_resume(project_svc_integration: ProjectService):
         assert isinstance(result, Resume)
         assert result.content == "Test resume content"
         assert result.id is not None
+>>>>>>> 79843e91bcbe582523f08fd293a945de4e053a8e
