@@ -34,7 +34,7 @@ The frontend portion of the Projects feature includes components that allow user
 
 #### Homepage<a name="Homepage"></a>
 
-![Projects Homepage UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/project-homepage.png)
+![Projects Homepage UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/project-homepage.png)
 
 The homepage for the Projects feature serves as the entry point for users interested in exploring available projects or submitting new ones. It provides a clear overview of all publicly listed projects and offers intuitive navigation for both browsing and interaction.
 
@@ -52,7 +52,7 @@ These features are accessible to all authenticated users of the CSXL platform an
 
 #### Project Details Page<a name="ProjectDetailsPage"></a>
 
-![Project Details Page UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/project-details-page.png)
+![Project Details Page UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/project-details-page.png)
 
 The project details page displays in-depth information about a selected project. It is accessed by clicking on a project card from the homepage or search results. The page is rendered using the `project-details-info-card` widget, which fetches and displays all metadata associated with a project.
 
@@ -68,7 +68,7 @@ The page is powered by a slug-based route and uses the backend API (`GET /api/pr
 
 #### Applications Page<a name="ApplicationsPage"></a>
 
-![Applications Page UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/applications-page.png)
+![Applications Page UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/applications-page.png)
 
 The applications page allows both project owners and applicants to view and manage job applications tied to projects.
 
@@ -94,7 +94,7 @@ The page uses conditional logic to determine whether the logged-in user is the o
 
 #### Posting Project<a name="PostingProject"></a>
 
-![Posting Project UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/add-project.png)
+![Posting Project UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/add-project.png)
 
 Users can post a new project using the `add-job` widget. This is a form where users provide essential project details such as title, description, requirements, and contact information. Once submitted, the data is sent to the backend API and persisted in the `project` table via the `ProjectEntity` SQLAlchemy model.
 
@@ -109,7 +109,7 @@ After submission, the project appears in the general listing and is accessible f
 
 #### Applying to Project<a name="ApplyingProject"></a>
 
-![Applying to Project UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/apply-project.png)
+![Applying to Project UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/apply-project.png)
 
 Each project listing includes an **Apply** button that opens a modal implemented with the `apply-job-dialog` widget. This form allows users to submit a personalized application by filling out:
 
@@ -144,7 +144,7 @@ These tables are defined using SQLAlchemy models in `project_entity.py` and `pro
 
 An overview of the fields and relationships is shown below:
 
-![Entity Design](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/project-entity-diagram.png)
+![Entity Design](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/project-entity-diagram.png)
 
 ### Pydantic Model Implementation<a name='PydanticModelImplementation'></a>
 
@@ -243,7 +243,7 @@ This feature adds 9 new API routes to deliver CRUD operations on a variety of ob
 
 Below is a summary of these routes:
 
-![Summary of API Routes](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/api-endpoints.png)
+![Summary of API Routes](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/api-endpoints.png)
 
 ### Testing<a name='Testing'></a>
 
@@ -263,53 +263,53 @@ Starting from the Projects homepage, here are some narratives to follow:
 
 You're a student who's curious about what projects you can do at UNC. Guided to the projects homepage, you see a sea of listings.
 
-![Projects Homepage UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/project-homepage.png)
+![Projects Homepage UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/project-homepage.png)
 
 Mesmerized by the listings, you decide to click on `Recommend Projects` to get a better idea of your capabilities in relation to these projects.
 
-![Recommend Projects UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/recommend-projects.png)
+![Recommend Projects UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/recommend-projects.png)
 
 After uploading your resume, you're presented with a snackbar for the returned recommended projects.
 
-![Recommend Projects Snackbar](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/recommend-project-snackbar.png)
+![Recommend Projects Snackbar](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/recommend-project-snackbar.png)
 
 Knowing what to join now, you click on the details of your desired project.
 
-![Project Detail UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/project-details-page.png)
+![Project Detail UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/project-details-page.png)
 
 You then click apply, bringing up a form with relevant fields.
 
-![Application UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/apply-project.png)
+![Application UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/apply-project.png)
 
 After sending the application, you're greeted with a snackbar confirming your request.
 
-![Snackbar Sent](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/applied-snackbar.png)
+![Snackbar Sent](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/applied-snackbar.png)
 
 After an hour, you realize that you accidently put a 5 as your gpa instead of a 4, so you go to applications withdraw your application.
 
-![Applicants Application Page](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/applicants-application-page.png)
+![Applicants Application Page](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/applicants-application-page.png)
 
 Now you are met with this sad blank applications page. Go apply!
 
-![Applicants Application Page](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/blank-application.png)
+![Applicants Application Page](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/blank-application.png)
 
 
 ### Aspiring Developer
 
 You're a developer who wants to make it big in the industry, and CSXL's Projects feature caught your attention. On the homepage, you click on `Add a Project`.
 
-![Add a Project Form](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/add-project.png)
+![Add a Project Form](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/add-project.png)
 
 After submitting your project submission, you're pulled back to the Projects page with your project displayed in the crowd of listings.
 
-![Job Listing in Projects](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/your-posted-project.png)
+![Job Listing in Projects](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/your-posted-project.png)
 
 After waiting for 30 minutes, you click on `Applications` and coincidentally have one new applicant to review.
 
-![Application UI with Applicant](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/your-applicants.png)
+![Application UI with Applicant](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/your-applicants.png)
 
 Seeing this promising candidate show up at the doorstep of your listing, you gladly accept them, prompting an confirmation screen which also inclues the candidates contact information.
 
-![Application Confirmation UI](https://github.com/comp423-25s/csxl-team-d8/blob/editing/kamalv-specs.md/docs/images/applicant-contact-info.png)
+![Application Confirmation UI](https://github.com/joz2005/csxl-project-hub/blob/stage/docs/images/applicant-contact-info.png)
 
 
